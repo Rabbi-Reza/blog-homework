@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllPosts } from '../store/Posts/postsAction'
 import React, { useEffect, useRef, useState } from 'react';
+import HomePage from '../components/HomePage'
 
 export default function Home() {
   const [allPosts, setAllPosts] = useState([]);
@@ -12,11 +13,11 @@ export default function Home() {
     dispatch(fetchAllPosts())
   }, []);
 
-  const AllPosts = useSelector((state) => state?.posts);
+  const {postList} = useSelector((state) => state?.posts);
   
   useEffect(() => {
-    AllPosts && setAllPosts(AllPosts)
-  }, [AllPosts])
+    postList && setAllPosts(postList)
+  }, [postList])
   
   console.log(allPosts)
   return (
@@ -28,7 +29,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-dfsdfds
+        <HomePage allPosts={allPosts}/>
       </main>
     </>
   )
