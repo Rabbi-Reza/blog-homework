@@ -1,8 +1,9 @@
-import Head from 'next/head'
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllPosts } from '../store/Posts/postsAction'
-import React, { useEffect, useRef, useState } from 'react';
-import HomePage from '../components/HomePage'
+import { Skeleton } from "antd";
+import Head from "next/head";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import HomePage from "../components/HomePage";
+import { fetchAllPosts } from "../store/Posts/postsAction";
 
 export default function Home() {
   const [allPosts, setAllPosts] = useState([]);
@@ -10,16 +11,16 @@ export default function Home() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchAllPosts())
+    dispatch(fetchAllPosts());
   }, []);
 
-  const {postList} = useSelector((state) => state?.posts);
-  
+  const { postList, loading } = useSelector((state) => state?.posts);
+  console.log(loading);
   useEffect(() => {
-    postList && setAllPosts(postList)
-  }, [postList])
-  
-  console.log(allPosts)
+    postList && setAllPosts(postList);
+  }, [postList]);
+
+  console.log(allPosts);
   return (
     <>
       <Head>
@@ -29,8 +30,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <HomePage allPosts={allPosts}/>
+        {allPosts.length == 0 || loading ? (
+          <Skeleton />
+        ) : (
+          <HomePage allPosts={allPosts} />
+        )}
       </main>
     </>
-  )
+  );
 }
