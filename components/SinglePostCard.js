@@ -1,10 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link';
 import { Card } from 'antd';
 import { Typography } from 'antd';
 const { Meta } = Card;
+import { fetchCommentsById } from '../store/comments/commentsAction'
+import { useDispatch, useSelector } from 'react-redux';
 
 const SinglePostCard = ({data}) => {
+  const [allComments, setAllComments] = useState([]);
+
+  const dispatch = useDispatch();
+
+useEffect(() => {
+  data && dispatch(fetchCommentsById(data.id))
+}, [data])
+
+
+const {postList} = useSelector((state) => state?.posts);
 
   return (
     <Card

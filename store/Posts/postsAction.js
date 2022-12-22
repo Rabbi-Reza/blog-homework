@@ -12,7 +12,7 @@ export const fetchAllPosts = () => async (dispatch) => {
 
       dispatch({
         type: FETCH_POSTS_SUCCESS,
-        payload: response.data
+        payload: response.data.slice(0, 20)
       });
     } catch (error) {
       dispatch({
