@@ -1,5 +1,6 @@
-import { Skeleton } from "antd";
+import { Card, Divider, Skeleton, Typography } from "antd";
 import Head from "next/head";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -40,7 +41,7 @@ const PostDetail = () => {
   useEffect(() => {
     postDetail && dispatch(fetchCommentsById(postDetail?.id));
     postDetail && dispatch(fetchUsersById(postDetail?.userId));
-    postDetail && dispatch(fetchPhotoById(postDetail?.id));
+    postDetail && dispatch(fetchPhotoById(userInfoByID[0]?.id));
   }, [postDetail]);
 
   return (
@@ -55,21 +56,53 @@ const PostDetail = () => {
         <Skeleton />
       ) : (
         <>
-          <div>
-            <img src={singlePhotoById[0]?.url} alt="" />
+          <header className="blog_header">
+            <Link href="/">
+              <span>Blog Site</span>
+            </Link>
+          </header>
+
+          <div className="detail_post_container">
+            <Card className="detail_post_card">
+              <Typography.Title className="detail_post_author_name" level={2}>
+                <span>{postDetail.title}</span>
+              </Typography.Title>
+              <Divider />
+              <div className="detail_post_author_container">
+                <Typography.Title className="author_name" level={5}>
+                  Author:{" "}
+                  <span style={{ color: "rgb(218 86 139)" }}>
+                    {userInfoByID[0]?.name}
+                  </span>
+                </Typography.Title>
+                <img
+                  className="author_image"
+                  height={50}
+                  alt="author_image"
+                  src={singlePhotoById[0]?.thumbnailUrl}
+                />
+              </div>
+              <Typography.Text style={{ fontSize: "1.3rem" }}>
+                <span>{postDetail.body}</span>
+              </Typography.Text>
+              <Divider style={{ height: "2px", background: "#8500ff" }} />
+              <Typography.Title level={5} strong code>
+                <span> All {commentsById?.length} Comments are Below</span>
+              </Typography.Title>
+              {commentsById &&
+                commentsById.map((comment, id) => (
+                  <>
+                    <Typography.Title level={5}>
+                      ({id+1}) <span>{comment?.name}:</span> <span style={{color:'#3003fc'}}>(Email: {comment?.email})</span>
+                    </Typography.Title>
+                    <Typography.Paragraph italic>
+                      <span>{comment?.body}</span>
+                    </Typography.Paragraph>
+                  </>
+                ))}
+            </Card>
           </div>
-          <div>
-            {pid} {postDetail.title}
-          </div>
-          <div>{postDetail.body}</div>
-          <p>Author: {userInfoByID[0]?.name}</p>
-          {commentsById &&
-            commentsById.map((comment) => (
-              <>
-                <h4>{comment?.name}</h4>
-                <p>{comment?.body}</p>
-              </>
-            ))}
+          <footer className="blog_footer"></footer>
         </>
       )}
     </>

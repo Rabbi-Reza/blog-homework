@@ -1,5 +1,5 @@
 import { DeleteOutlined } from "@ant-design/icons";
-import { Card, Typography } from "antd";
+import { Card, Divider, Typography } from "antd";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -29,28 +29,48 @@ const SinglePostCard = ({ data, deletePost }) => {
 
   // Filter Photos
   useEffect(() => {
-    setAllPhotos(allPhotosList.filter((dt) => dt?.id == data?.id));
+    setAllPhotos(allPhotosList.filter((dt) => dt?.id == userData[0]?.id));
   }, [allPhotosList]);
 
   return (
-    <Card
-      style={{
-        width: "50vw",
-      }}
-      cover={
-        <img alt="example" height={150} src={allPhotos[0]?.thumbnailUrl} />
-      }
-    >
-      <Link href="/post/[pid]" as={`/post/${data?.id}`}>
-        <Meta title={data?.title} />
-      </Link>
-      <Typography.Title level={4} style={{ margin: 0, color: "gray" }}>
-        Author: {userData && userData[0]?.name}
-      </Typography.Title>
-      <Typography.Title level={5} style={{ margin: 0, color: "gray" }}>
-        {allCommentsList?.length} Comments Found
-      </Typography.Title>
-      <DeleteOutlined onClick={() => deletePost(data?.id)} />
+    <Card className="single_card_container">
+      <div className="single_card_info_delete_container">
+        <div className="single_card_info">
+          <Typography.Title level={4} className="post_title">
+            <Link href="/post/[pid]" as={`/post/${data?.id}`}>
+              <span>{data?.title}</span>
+            </Link>
+          </Typography.Title>
+
+          <Divider />
+          <div className="author_container">
+            <img
+              className="author_image"
+              height={50}
+              alt="example"
+              src={allPhotos[0]?.thumbnailUrl}
+            />
+            <Typography.Title className="author_name" level={5}>
+              Author:{" "}
+              <span style={{ color: "rgb(218 86 139)" }}>
+                {userData && userData[0]?.name}
+              </span>
+            </Typography.Title>
+          </div>
+
+          <Divider />
+          <Typography.Title level={5} style={{ margin: 0, color: "black" }}>
+            {allCommentsList?.length} Comments Found
+          </Typography.Title>
+        </div>
+
+        <div className="delete_button">
+          <DeleteOutlined
+            title={`Click to delete ${data?.id} no post.`}
+            onClick={() => deletePost(data?.id)}
+          />
+        </div>
+      </div>
     </Card>
   );
 };
