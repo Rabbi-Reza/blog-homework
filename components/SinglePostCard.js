@@ -14,13 +14,13 @@ const SinglePostCard = ({data}) => {
 
   const dispatch = useDispatch();
 
-useEffect(() => {
-  data && dispatch(fetchCommentsById(data?.id))
-}, [data])
+// useEffect(() => {
+//   data && dispatch(fetchCommentsById(data?.id))
+// }, [data])
 
-useEffect(() => {
-  data && dispatch(fetchUsersById(data?.userId))
-}, [data])
+// useEffect(() => {
+//   data && dispatch(fetchUsersById(data?.userId))
+// }, [data])
 
 
 
@@ -47,7 +47,8 @@ useEffect(() => {
     // cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
   >
       <Link
-        href={`/post/${data?.id}`}
+       href="/post/[pid]"
+       as={`/post/${data?.id}`}
       >
         <Meta title={data?.title} />
       </Link>
@@ -55,6 +56,8 @@ useEffect(() => {
         Author: {userInfo[0]?.name}
       </Typography.Title>
       <Typography.Title level={5} style={{ margin: 0, color: 'gray' }}>
+
+        {allComments[0]?.id}
         {commentNumber} Comments Found
       </Typography.Title>
     

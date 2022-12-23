@@ -15,12 +15,12 @@ export default function Home() {
   }, []);
 
   const { postList, loading } = useSelector((state) => state?.posts);
-  console.log(loading);
+  // console.log(loading);
   useEffect(() => {
     postList && setAllPosts(postList);
   }, [postList]);
 
-  console.log(allPosts);
+  // console.log(allPosts);
   return (
     <>
       <Head>
