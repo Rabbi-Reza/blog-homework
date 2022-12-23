@@ -1,69 +1,53 @@
-import React, { useEffect, useState } from 'react'
-import Link from 'next/link';
-import { Card } from 'antd';
-import { Typography } from 'antd';
+import { Card, Typography } from "antd";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 const { Meta } = Card;
-import { fetchCommentsById } from '../store/Comments/commentsAction'
-import { fetchUsersById } from '../store/Users/usersAction'
-import { useDispatch, useSelector } from 'react-redux';
+import { DeleteOutlined } from '@ant-design/icons';
+import { useSelector } from "react-redux";
 
-const SinglePostCard = ({data}) => {
-  console.log(data)
-  const [commentNumber, setCommentNumber] = useState([]);
+const SinglePostCard = ({ data,deletePost }) => {
+  const [allCommentsList, setAllCommentsList] = useState([]);
   const [userData, setUserData] = useState([]);
+  const [allPhotos, setAllPhotos] = useState([]);
 
-  const dispatch = useDispatch();
+  const { allUserData } = useSelector((state) => state?.users);
+  const { allComments } = useSelector((state) => state?.comments);
+  const { allPhotosList } = useSelector((state) => state?.photos);
 
-// useEffect(() => {
-//   data && dispatch(fetchCommentsById(data?.id))
-// }, [data])
+  useEffect(() => {
+    setUserData(allUserData.filter((dt) => dt?.id == data?.userId));
+  }, [allUserData]);
 
-// useEffect(() => {
-//   data && dispatch(fetchUsersById(data?.userId))
-// }, [data])
+  useEffect(() => {
+    setAllCommentsList(allComments.filter((dt) => dt?.postId == data?.id));
+  }, [allComments]);
 
 
-
-const {allComments} = useSelector((state) => state?.comments);
-const {userInfo} = useSelector((state) => state?.users);
-
-useEffect(() => {
-  console.log(allComments?.length)
-  allComments && setCommentNumber(allComments?.length)
-}, [allComments])
-
-useEffect(() => {
-  console.log('userData',userData)
-  userInfo && setUserData(userInfo[0])
-}, [userInfo])
-
+  useEffect(() => {
+    // console.log('photo',allPhotosList)
+    setAllPhotos(allPhotosList.filter((dt) => dt?.id == data?.id));
+  }, [allPhotosList]);
 
   return (
     <Card
-    // hoverable
-    style={{
-      width: '50vw',
-    }}
-    // cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-  >
-      <Link
-       href="/post/[pid]"
-       as={`/post/${data?.id}`}
-      >
+      // hoverable
+      style={{
+        width: "50vw",
+      }}
+      cover={<img alt="example" height={150} src={allPhotos[0]?.thumbnailUrl} />}
+    >
+      <Link href="/post/[pid]" as={`/post/${data?.id}`}>
         <Meta title={data?.title} />
       </Link>
-      <Typography.Title level={4} style={{ margin: 0, color: 'gray' }}>
-        Author: {userInfo[0]?.name}
+      <Typography.Title level={4} style={{ margin: 0, color: "gray" }}>
+        Author: {userData && userData[0]?.name}
       </Typography.Title>
-      <Typography.Title level={5} style={{ margin: 0, color: 'gray' }}>
-
-        {allComments[0]?.id}
-        {commentNumber} Comments Found
+      <Typography.Title level={5} style={{ margin: 0, color: "gray" }}>
+        {allCommentsList?.length} Comments Found
       </Typography.Title>
-    
-  </Card>
+      <DeleteOutlined onClick={() => deletePost(data?.id)}/>
+    </Card>
+  );
+};
 
-  )
-}
-
-export default SinglePostCard
+export default SinglePostCard;

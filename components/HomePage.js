@@ -1,12 +1,12 @@
-import React from 'react'
-import SinglePostCard from './SinglePostCard'
+import SinglePostCard from "./SinglePostCard";
 
-const HomePage = ({ allPosts}) => {
+const HomePage = ({ allPosts,deletePost }) => {
   return (
-        <>
-        { allPosts && allPosts?.map(data => <SinglePostCard key={data.id} data={data}/>)}        
-        </>
-  )
-}
+    <>
+      {allPosts &&
+        allPosts?.map((data) => <SinglePostCard key={data.id} data={data} deletePost={deletePost}/>)}
+    </>
+  );
+};
 
-export default HomePage
+export default HomePage;
