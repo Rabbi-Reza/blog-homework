@@ -4,28 +4,32 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import HomePage from "../components/HomePage";
 import { fetchAllComments } from "../store/Comments/commentsAction";
+import { fetchAllPhotos } from "../store/Photos/photosAction";
 import { fetchAllPosts } from "../store/Posts/postsAction";
 import { fetchAllUsers } from "../store/Users/usersAction";
-import {fetchAllPhotos} from "../store/Photos/photosAction";
 
 export default function Home() {
   const [allPosts, setAllPosts] = useState([]);
 
   const dispatch = useDispatch();
 
+  // Calling API for Post, users, comments and photos
   useEffect(() => {
     dispatch(fetchAllPosts());
     dispatch(fetchAllUsers());
     dispatch(fetchAllComments());
-    dispatch(fetchAllPhotos())
+    dispatch(fetchAllPhotos());
   }, []);
 
+  // Get Post Data state from Reducer
   const { postList, loading } = useSelector((state) => state?.posts);
 
+  // Set Post Data to a state
   useEffect(() => {
     postList && setAllPosts(postList);
   }, [postList]);
 
+  // Function for Delete Post by Filtering id
   const deletePost = (id) => {
     setAllPosts(allPosts.filter((dt) => dt.id != id));
   };
@@ -39,7 +43,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        {allPosts.length == 0 || loading ? (
+        {allPosts?.length == 0 || loading ? (
           <Skeleton />
         ) : (
           <HomePage allPosts={allPosts} deletePost={deletePost} />

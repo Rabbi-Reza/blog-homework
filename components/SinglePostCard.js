@@ -1,40 +1,45 @@
+import { DeleteOutlined } from "@ant-design/icons";
 import { Card, Typography } from "antd";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-const { Meta } = Card;
-import { DeleteOutlined } from '@ant-design/icons';
 import { useSelector } from "react-redux";
+const { Meta } = Card;
 
-const SinglePostCard = ({ data,deletePost }) => {
+const SinglePostCard = ({ data, deletePost }) => {
   const [allCommentsList, setAllCommentsList] = useState([]);
   const [userData, setUserData] = useState([]);
   const [allPhotos, setAllPhotos] = useState([]);
 
+  // Get Author Data state from Reducer
   const { allUserData } = useSelector((state) => state?.users);
+  // Get Comments Data state from Reducer
   const { allComments } = useSelector((state) => state?.comments);
+  // Get Photo Data state from Reducer
   const { allPhotosList } = useSelector((state) => state?.photos);
 
+  // Filter Author from user id
   useEffect(() => {
     setUserData(allUserData.filter((dt) => dt?.id == data?.userId));
   }, [allUserData]);
 
+  // Filter comments from post id
   useEffect(() => {
     setAllCommentsList(allComments.filter((dt) => dt?.postId == data?.id));
   }, [allComments]);
 
-
+  // Filter Photos
   useEffect(() => {
-    // console.log('photo',allPhotosList)
     setAllPhotos(allPhotosList.filter((dt) => dt?.id == data?.id));
   }, [allPhotosList]);
 
   return (
     <Card
-      // hoverable
       style={{
         width: "50vw",
       }}
-      cover={<img alt="example" height={150} src={allPhotos[0]?.thumbnailUrl} />}
+      cover={
+        <img alt="example" height={150} src={allPhotos[0]?.thumbnailUrl} />
+      }
     >
       <Link href="/post/[pid]" as={`/post/${data?.id}`}>
         <Meta title={data?.title} />
@@ -45,7 +50,7 @@ const SinglePostCard = ({ data,deletePost }) => {
       <Typography.Title level={5} style={{ margin: 0, color: "gray" }}>
         {allCommentsList?.length} Comments Found
       </Typography.Title>
-      <DeleteOutlined onClick={() => deletePost(data?.id)}/>
+      <DeleteOutlined onClick={() => deletePost(data?.id)} />
     </Card>
   );
 };
