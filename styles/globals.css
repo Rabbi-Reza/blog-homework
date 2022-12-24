@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
 * {
   box-sizing: border-box;
   padding: 0;
@@ -6,6 +7,7 @@
 }
 
 body {
+  font-family: 'Poppins', sans-serif;
   background: linear-gradient(
     to right,
     hsl(199, 49%, 90%),
@@ -59,7 +61,7 @@ body {
 /* Top arrow start */
 .top_arrow {
   position: fixed;
-  bottom: 5vh;
+  bottom: 7vh;
   right: 10px;
   z-index: 20;
   font-size: 2rem;
@@ -73,6 +75,7 @@ body {
 
 /* Main Posts container start */
 .home_main_container {
+  font-family: 'Poppins', sans-serif;
   top: 7vh;
   display: flex;
   flex-direction: column;
@@ -173,7 +176,7 @@ body {
 }
 
 .go_back_button {
-  margin-bottom: 6vh;
+  margin-bottom: 7vh;
   text-decoration: none;
   background: rgba(0, 0, 0, 0.571);
   color: #fff;

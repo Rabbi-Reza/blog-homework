@@ -12,42 +12,47 @@ import {
 const initialState = {
   userInfoByID: [],
   allUserData: [],
-  success: false,
-  loading: false,
-  error: null,
+  userSuccess: false,
+  userLoading: false,
+  userError: null,
 };
 
 const usersReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_USER_BY_ID:
-      return { ...state, loading: true, success: false };
+      return { ...state, userLoading: true, userSuccess: false };
 
     case FETCH_USER_BY_ID_SUCCESS:
       return {
         ...state,
-        loading: false,
-        success: true,
+        userLoading: false,
+        userSuccess: true,
         userInfoByID: action.payload,
       };
+
     case FETCH_USER_BY_ID_ERROR:
-      return { ...state, loading: false, error: action.payload };
+      return { ...state, userLoading: false, userError: action.payload };
+
     case FETCH_USER_BY_ID_RESET:
-      return { userInfoByID: [], loading: false, error: null };
+      return { userInfoByID: [], userLoading: false, userError: null };
 
     case FETCH_ALL_USER:
-      return { ...state, loading: true, success: false };
+      return { ...state, userLoading: true, userSuccess: false };
 
     case FETCH_ALL_USER_SUCCESS:
       return {
         ...state,
-        loading: false,
+        userLoading: false,
         success: true,
         allUserData: action.payload,
       };
+
     case FETCH_ALL_USER_ERROR:
-      return { ...state, loading: false, error: action.payload };
+      return { ...state, loading: false, userError: action.payload };
+
     case FETCH_ALL_USER_RESET:
-      return { allUserData: [], loading: false, error: null };
+      return { allUserData: [], loading: false, userError: null };
+
     default:
       return state;
   }

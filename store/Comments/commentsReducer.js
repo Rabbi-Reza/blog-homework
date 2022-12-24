@@ -20,34 +20,47 @@ const initialState = {
 const commentsReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_COMMENT_BY_ID:
-      return { ...state, loading: true, success: false };
+      return { ...state, commentsLoading: true, commentsSuccess: false };
 
     case FETCH_COMMENT_BY_ID_SUCCESS:
       return {
         ...state,
-        loading: false,
-        success: true,
+        commentsLoading: false,
+        commentsSuccess: true,
         commentsById: action.payload,
       };
+
     case FETCH_COMMENT_BY_ID_ERROR:
-      return { ...state, loading: false, error: action.payload };
+      return {
+        ...state,
+        commentsLoading: false,
+        commentsError: action.payload,
+      };
+
     case FETCH_COMMENT_BY_ID_RESET:
-      return { commentsById: [], loading: false, error: null };
+      return { commentsById: [], commentsLoading: false, commentsError: null };
 
     case FETCH_ALL_COMMENTS:
-      return { ...state, loading: true, success: false };
+      return { ...state, commentsLoading: true, commentsSuccess: false };
 
     case FETCH_ALL_COMMENTS_SUCCESS:
       return {
         ...state,
-        loading: false,
-        success: true,
+        commentsLoading: false,
+        commentsSuccess: true,
         allComments: action.payload,
       };
+
     case FETCH_ALL_COMMENTS_ERROR:
-      return { ...state, loading: false, error: action.payload };
+      return {
+        ...state,
+        commentsLoading: false,
+        commentsError: action.payload,
+      };
+
     case FETCH_ALL_COMMENTS_RESET:
-      return { allComments: [], loading: false, error: null };
+      return { allComments: [], commentsLoading: false, commentsError: null };
+
     default:
       return state;
   }

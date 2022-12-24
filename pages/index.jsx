@@ -27,25 +27,30 @@ export default function Home() {
   }, [dispatch]);
 
   // Get Post Data state from Reducer
-  const { postList, loading, error } = useSelector((state) => state?.posts);
+  const { postList, postLoading, postError } = useSelector(
+    (state) => state?.posts
+  );
 
   // Set Post Data to a state
   useEffect(() => {
     postList && setAllPosts(postList);
   }, [postList]);
 
+  // Show toast if post list api get error
   useEffect(() => {
-    error &&
+    postError &&
       api["error"]({
-        message: <strong style={{ color: "red" }}>{"Error Occurred"}</strong>,
+        message: (
+          <strong style={{ color: "red" }}>{"Something went wrong !!"}</strong>
+        ),
         description: (
           <p
             style={{ color: "blue", fontWeight: "600" }}
-          >{`Something went wrong !!`}</p>
+          >{`Error Occurred getting Post List.`}</p>
         ),
         duration: 3,
       });
-  }, [error]);
+  }, [postError]);
 
   // Function for Delete Post by Filtering id
   const deletePost = (id) => {
@@ -67,7 +72,7 @@ export default function Home() {
       <Layout>
         <main className="home_main_container">
           {contextHolder}
-          {loading ? (
+          {postLoading ? (
             <div style={{ marginLeft: "10vw", marginTop: "15vh" }}>
               <Skeleton />
             </div>

@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { Card, Divider, Skeleton, Typography } from "antd";
+import { Card, Divider, notification, Skeleton, Typography } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -15,6 +15,8 @@ const PostDetail = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
+  const [api, contextHolder] = notification.useNotification();
+
   // Get Post id from url query
   const { pid } = router.query;
 
@@ -26,15 +28,19 @@ const PostDetail = () => {
   }, [dispatch, pid]);
 
   // Get Specific Post Data by ID state from Reducer
-  const { singlePost, loading } = useSelector((state) => state?.posts);
+  const { singlePost, postLoading, postError } = useSelector(
+    (state) => state?.posts
+  );
   // Get Specific Comments Data by ID state from Reducer
-  const { commentsById, commentsLoading } = useSelector(
+  const { commentsById, commentsError, commentsLoading } = useSelector(
     (state) => state?.comments
   );
   // Get Specific Author/User Data by ID state from Reducer
-  const { userInfoByID } = useSelector((state) => state?.users);
+  const { userInfoByID, userError } = useSelector((state) => state?.users);
   // Get Specific Photo Data by ID state from Reducer
-  const { singlePhotoById } = useSelector((state) => state?.photos);
+  const { singlePhotoById, photosError } = useSelector(
+    (state) => state?.photos
+  );
 
   // Set Specific Post Data to a state
   useEffect(() => {
@@ -51,21 +57,86 @@ const PostDetail = () => {
     userInfoByID && dispatch(fetchPhotoById(userInfoByID[0]?.id));
   }, [dispatch, userInfoByID]);
 
+  // Show toast if Post api get error
+  useEffect(() => {
+    postError &&
+      api["error"]({
+        message: (
+          <strong style={{ color: "red" }}>{"Something went wrong !!"}</strong>
+        ),
+        description: (
+          <p
+            style={{ color: "blue", fontWeight: "600" }}
+          >{`Error Occurred getting APost Data.`}</p>
+        ),
+        duration: 2,
+      });
+  }, [postError]);
+
+  // Show toast if user/Author api get error
+  useEffect(() => {
+    userError &&
+      api["error"]({
+        message: (
+          <strong style={{ color: "red" }}>{"Something went wrong !!"}</strong>
+        ),
+        description: (
+          <p
+            style={{ color: "blue", fontWeight: "600" }}
+          >{`Error Occurred getting Author Data.`}</p>
+        ),
+        duration: 2,
+      });
+  }, [userError]);
+
+  // Show toast if comments api get error
+  useEffect(() => {
+    commentsError &&
+      api["error"]({
+        message: (
+          <strong style={{ color: "red" }}>{"Something went wrong !!"}</strong>
+        ),
+        description: (
+          <p
+            style={{ color: "blue", fontWeight: "600" }}
+          >{`Error Occurred getting Comments.`}</p>
+        ),
+        duration: 2,
+      });
+  }, [commentsError]);
+
+  // Show toast if photo api get error
+  useEffect(() => {
+    photosError &&
+      api["error"]({
+        message: (
+          <strong style={{ color: "red" }}>{"Something went wrong !!"}</strong>
+        ),
+        description: (
+          <p
+            style={{ color: "blue", fontWeight: "600" }}
+          >{`Error Occurred getting Photos.`}</p>
+        ),
+        duration: 2,
+      });
+  }, [photosError]);
+
   return (
     <>
       <HeadDefault title={`Post ${pid} Detail`} />
 
       <Layout>
-        {postDetail?.length == 0 || loading ? (
+        {postDetail?.length == 0 || postLoading ? (
           <div style={{ marginLeft: "10vw", marginTop: "15vh" }}>
             <Skeleton />
           </div>
         ) : (
           <>
+            {contextHolder}
             <div className="detail_post_container">
               <Card className="detail_post_card">
                 <Typography.Title className="detail_post_author_name" level={2}>
-                  <span>{postDetail.title}</span>
+                  <span>{postDetail?.title}</span>
                 </Typography.Title>
                 <Divider />
                 <div className="detail_post_author_container">
@@ -93,7 +164,7 @@ const PostDetail = () => {
                   />
                 </div>
                 <Typography.Text style={{ fontSize: "1.3rem" }}>
-                  <span>{postDetail.body}</span>
+                  <span>{postDetail?.body}</span>
                 </Typography.Text>
                 <Divider style={{ height: "2px", background: "#8500ff" }} />
 

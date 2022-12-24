@@ -5,7 +5,7 @@ const HomePage = ({ allPosts, deletePost }) => {
     <>
       {allPosts &&
         allPosts?.map((data) => (
-          <SinglePostCard key={data.id} data={data} deletePost={deletePost} />
+          <SinglePostCard key={data?.id} data={data} deletePost={deletePost} />
         ))}
     </>
   );
