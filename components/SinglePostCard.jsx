@@ -15,7 +15,7 @@ const SinglePostCard = ({ data, deletePost }) => {
   // Get Author Data state from Reducer
   const { allUserData, userError } = useSelector((state) => state?.users);
   // Get Comments Data state from Reducer
-  const { allComments, commentsLoading } = useSelector(
+  const { allComments, commentsError } = useSelector(
     (state) => state?.comments
   );
   // Get Photo Data state from Reducer
@@ -54,7 +54,7 @@ const SinglePostCard = ({ data, deletePost }) => {
 
   // Show toast if comments list api get error
   useEffect(() => {
-    commentsLoading &&
+    commentsError &&
       api["error"]({
         message: (
           <strong style={{ color: "red" }}>{"Something went wrong !!"}</strong>
@@ -66,7 +66,7 @@ const SinglePostCard = ({ data, deletePost }) => {
         ),
         duration: 2,
       });
-  }, [commentsLoading]);
+  }, [commentsError]);
 
   // Show toast if photos list api get error
   useEffect(() => {
