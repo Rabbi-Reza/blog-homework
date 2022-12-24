@@ -206,3 +206,23 @@ body {
     font-size: 1rem !important;
   }
 }
+
+/* Custom Scrollbar start */
+
+/* width */
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #1f5da0;
+  border-radius: 8px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #1f5da0d0;
+  cursor: pointer;
+}
+/* Custom Scrollbar end */
