@@ -69,10 +69,18 @@ const PostDetail = () => {
                 <Divider />
                 <div className="detail_post_author_container">
                   <Typography.Title className="author_name" level={5}>
-                    Author:{" "}
-                    <span style={{ color: "rgb(218 86 139)" }}>
+                    <Typography.Text
+                      italic
+                      style={{ margin: 0, color: "#8d3af2" }}
+                    >
+                      Author:{" "}
+                    </Typography.Text>
+                    <Typography.Text
+                      keyboard
+                      style={{ margin: 0, color: "rgb(218 86 139)" }}
+                    >
                       {userInfoByID[0]?.name}
-                    </span>
+                    </Typography.Text>
                   </Typography.Title>
 
                   <img
@@ -102,7 +110,8 @@ const PostDetail = () => {
                       commentsById.map((comment, id) => (
                         <>
                           <Typography.Title level={5}>
-                            ({id + 1}) <span>{comment?.name}:</span>{" "}
+                            <span style={{ color: "#1F5DA0" }}>({id + 1})&nbsp;</span>
+                            <span>{comment?.name}:</span>{" "}
                             <span style={{ color: "#3003fc" }}>
                               (Email: {comment?.email})
                             </span>

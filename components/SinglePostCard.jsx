@@ -52,15 +52,24 @@ const SinglePostCard = ({ data, deletePost }) => {
               src={allPhotos[0]?.thumbnailUrl}
             />
             <Typography.Title className="author_name" level={5}>
-              Author:{" "}
-              <span style={{ color: "rgb(218 86 139)" }}>
+              <Typography.Text style={{ margin: 0, color: "#8d3af2" }}>
+                Author:{" "}
+              </Typography.Text>
+              <Typography.Text
+                keyboard
+                style={{ margin: 0, color: "rgb(218 86 139)" }}
+              >
                 {userData && userData[0]?.name}
-              </span>
+              </Typography.Text>
             </Typography.Title>
           </div>
 
           <Divider />
-          <Typography.Title level={5} style={{ margin: 0, color: "black" }}>
+          <Typography.Title
+            italic
+            level={5}
+            style={{ margin: 0, color: "black" }}
+          >
             {allCommentsList?.length} Comments Found
           </Typography.Title>
         </div>
