@@ -1,14 +1,14 @@
 import axios from "axios";
 import {
-  FETCH_USER_BY_ID,
-  FETCH_USER_BY_ID_ERROR,
-  FETCH_USER_BY_ID_SUCCESS,
-
   FETCH_ALL_USER,
   FETCH_ALL_USER_ERROR,
   FETCH_ALL_USER_SUCCESS,
+  FETCH_USER_BY_ID,
+  FETCH_USER_BY_ID_ERROR,
+  FETCH_USER_BY_ID_SUCCESS,
 } from "./usersType";
 
+// Call to get Users/Authors from API specified by user ID
 export const fetchUsersById = (userId) => async (dispatch) => {
   try {
     dispatch({ type: FETCH_USER_BY_ID });
@@ -29,6 +29,7 @@ export const fetchUsersById = (userId) => async (dispatch) => {
   }
 };
 
+// Call to get all Users/Authors from API
 export const fetchAllUsers = () => async (dispatch) => {
   try {
     dispatch({ type: FETCH_ALL_USER });

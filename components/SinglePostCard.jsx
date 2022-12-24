@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { DeleteOutlined } from "@ant-design/icons";
 import { Card, Divider, Typography } from "antd";
 import Link from "next/link";
@@ -19,24 +20,24 @@ const SinglePostCard = ({ data, deletePost }) => {
 
   // Filter Author from user id
   useEffect(() => {
-    setUserData(allUserData.filter((dt) => dt?.id == data?.userId));
+    setUserData(allUserData.filter((dt) => dt?.id === data?.userId));
   }, [allUserData]);
 
   // Filter comments from post id
   useEffect(() => {
-    setAllCommentsList(allComments.filter((dt) => dt?.postId == data?.id));
+    setAllCommentsList(allComments.filter((dt) => dt?.postId === data?.id));
   }, [allComments]);
 
   // Filter Photos
   useEffect(() => {
-    setAllPhotos(allPhotosList.filter((dt) => dt?.id == userData[0]?.id));
+    setAllPhotos(allPhotosList.filter((dt) => dt?.id === userData[0]?.id));
   }, [allPhotosList]);
 
   return (
     <Card className="single_card_container">
       <div className="single_card_info_delete_container">
         <div className="single_card_info">
-          <Typography.Title level={4}  className="post_title_container">
+          <Typography.Title level={4} className="post_title_container">
             <Link href="/post/[pid]" as={`/post/${data?.id}`}>
               <span className="post_title">{data?.title}</span>
             </Link>

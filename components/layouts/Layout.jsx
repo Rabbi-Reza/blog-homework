@@ -1,6 +1,5 @@
-import React from 'react';
-import Header from '../shared/Header';
-import Footer from '../shared/Footer';
+import Footer from "../shared/Footer";
+import Header from "../shared/Header";
 
 const Layout = (props) => {
   return (

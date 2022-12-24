@@ -6,9 +6,9 @@ import {
   FETCH_POST_BY_ID,
   FETCH_POST_BY_ID_ERROR,
   FETCH_POST_BY_ID_SUCCESS,
-  
 } from "./postsActionType";
 
+// Call to get all Posts from API
 export const fetchAllPosts = () => async (dispatch) => {
   try {
     dispatch({ type: FETCH_POSTS });
@@ -29,6 +29,7 @@ export const fetchAllPosts = () => async (dispatch) => {
   }
 };
 
+// Call to get all Posts from API specified by user ID
 export const fetchPostById = (id) => async (dispatch) => {
   try {
     dispatch({ type: FETCH_POST_BY_ID });

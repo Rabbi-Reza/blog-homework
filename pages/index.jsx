@@ -24,15 +24,28 @@ export default function Home() {
     dispatch(fetchAllUsers());
     dispatch(fetchAllComments());
     dispatch(fetchAllPhotos());
-  }, []);
+  }, [dispatch]);
 
   // Get Post Data state from Reducer
-  const { postList, loading } = useSelector((state) => state?.posts);
+  const { postList, loading, error } = useSelector((state) => state?.posts);
 
   // Set Post Data to a state
   useEffect(() => {
     postList && setAllPosts(postList);
   }, [postList]);
+
+  useEffect(() => {
+    error &&
+      api["error"]({
+        message: <strong style={{ color: "red" }}>{"Error Occurred"}</strong>,
+        description: (
+          <p
+            style={{ color: "blue", fontWeight: "600" }}
+          >{`Something went wrong !!`}</p>
+        ),
+        duration: 3,
+      });
+  }, [error]);
 
   // Function for Delete Post by Filtering id
   const deletePost = (id) => {
@@ -42,7 +55,7 @@ export default function Home() {
       description: (
         <p
           style={{ color: "red", fontWeight: "600" }}
-        >{`${id} No Post is Deleted Successfully from List!!`}</p>
+        >{`${id} No Post is Deleted Successfully!!`}</p>
       ),
       duration: 2,
     });
@@ -55,7 +68,9 @@ export default function Home() {
         <main className="home_main_container">
           {contextHolder}
           {loading ? (
-            <Skeleton />
+            <div style={{ marginLeft: "10vw", marginTop: "15vh" }}>
+              <Skeleton />
+            </div>
           ) : (
             <>
               {allPosts?.length === 0 ? (

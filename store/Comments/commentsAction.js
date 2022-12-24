@@ -8,6 +8,7 @@ import {
   FETCH_COMMENT_BY_ID_SUCCESS,
 } from "./commentsType";
 
+// Call to get comments from API specified by post ID
 export const fetchCommentsById = (postId) => async (dispatch) => {
   try {
     dispatch({ type: FETCH_COMMENT_BY_ID });
@@ -28,6 +29,7 @@ export const fetchCommentsById = (postId) => async (dispatch) => {
   }
 };
 
+// Call to get all comments from API
 export const fetchAllComments = () => async (dispatch) => {
   try {
     dispatch({ type: FETCH_ALL_COMMENTS });
