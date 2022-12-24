@@ -47,7 +47,7 @@ const SinglePostCard = ({ data, deletePost }) => {
             <img
               className="author_image"
               height={50}
-              alt="example"
+              alt="author_image"
               src={allPhotos[0]?.thumbnailUrl}
             />
             <Typography.Title className="author_name" level={5}>
