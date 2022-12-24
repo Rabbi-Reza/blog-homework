@@ -1,9 +1,9 @@
 import { Card, Divider, Skeleton, Typography } from "antd";
-import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import HeadDefault from "../../components/head/Head";
 import { fetchCommentsById } from "../../store/Comments/commentsAction";
 import { fetchPhotoById } from "../../store/Photos/photosAction";
 import { fetchPostById } from "../../store/Posts/postsAction";
@@ -41,17 +41,15 @@ const PostDetail = () => {
   useEffect(() => {
     postDetail && dispatch(fetchCommentsById(postDetail?.id));
     postDetail && dispatch(fetchUsersById(postDetail?.userId));
-    postDetail && dispatch(fetchPhotoById(userInfoByID[0]?.id));
   }, [postDetail]);
+
+  useEffect(() => {
+    userInfoByID && dispatch(fetchPhotoById(userInfoByID[0]?.id));
+  }, [userInfoByID]);
 
   return (
     <>
-      <Head>
-        <title>Blog Post</title>
-        <meta name="description" content="Blog Post app" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <HeadDefault title={`Post ${pid} Detail`} />
       {postDetail?.length == 0 || loading ? (
         <Skeleton />
       ) : (
@@ -93,7 +91,10 @@ const PostDetail = () => {
                 commentsById.map((comment, id) => (
                   <>
                     <Typography.Title level={5}>
-                      ({id+1}) <span>{comment?.name}:</span> <span style={{color:'#3003fc'}}>(Email: {comment?.email})</span>
+                      ({id + 1}) <span>{comment?.name}:</span>{" "}
+                      <span style={{ color: "#3003fc" }}>
+                        (Email: {comment?.email})
+                      </span>
                     </Typography.Title>
                     <Typography.Paragraph italic>
                       <span>{comment?.body}</span>

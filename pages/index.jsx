@@ -1,18 +1,19 @@
 import { UpCircleOutlined } from "@ant-design/icons";
 import { notification, Skeleton } from "antd";
-import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import HeadDefault from "../components/head/Head";
 import HomePage from "../components/HomePage";
-import NoPost from "../components/NoPost"
+import Layout from "../components/layouts/Layout";
+import NoPost from "../components/NoPost";
 import { fetchAllComments } from "../store/Comments/commentsAction";
 import { fetchAllPhotos } from "../store/Photos/photosAction";
 import { fetchAllPosts } from "../store/Posts/postsAction";
 import { fetchAllUsers } from "../store/Users/usersAction";
 
 export default function Home() {
-  const [allPosts, setAllPosts] = useState([]);
+  const [allPosts, setAllPosts] = useState([""]);
 
   const dispatch = useDispatch();
   const [api, contextHolder] = notification.useNotification();
@@ -43,43 +44,34 @@ export default function Home() {
           style={{ color: "red", fontWeight: "600" }}
         >{`${id} No Post is Deleted Successfully from List!!`}</p>
       ),
-      duration: 2
+      duration: 2,
     });
   };
 
   return (
     <>
-      <Head>
-        <title>Blog Post</title>
-        <meta name="description" content="Blog Post app" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <header className="blog_header">
-        <Link href="/">
-          <span>Blog Site</span>
+      <HeadDefault title="Blog Site" />
+      <Layout>
+        <main className="home_main_container">
+          {contextHolder}
+          {loading ? (
+            <Skeleton />
+          ) : (
+            <>
+              {allPosts?.length === 0 ? (
+                <NoPost />
+              ) : (
+                <HomePage allPosts={allPosts} deletePost={deletePost} />
+              )}
+            </>
+          )}
+        </main>
+        <Link href="#">
+          <span className="top_arrow" title="Click to Go Top">
+            <UpCircleOutlined />
+          </span>
         </Link>
-      </header>
-      <main className="home_main_container">
-        {contextHolder}
-        {loading ? (
-          <Skeleton />
-        ) : (
-          <>
-            {allPosts?.length === 0 ? (
-              <NoPost />
-            ) : (
-              <HomePage allPosts={allPosts} deletePost={deletePost} />
-            )}
-          </>
-        )}
-      </main>
-      <Link href="#">
-        <span className="top_arrow">
-          <UpCircleOutlined />
-        </span>
-      </Link>
-      <footer className="blog_footer"></footer>
+      </Layout>
     </>
   );
 }

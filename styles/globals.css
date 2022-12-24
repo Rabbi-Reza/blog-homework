@@ -5,11 +5,18 @@
   position: relative;
 }
 
+body {
+  background: linear-gradient(
+    to right,
+    hsl(199, 49%, 90%),
+    hsl(176, 100%, 97%)
+  );
+}
+
 /* Header style start */
 .blog_header {
   background: rgb(72, 71, 71);
   padding: 5px 20px 5px;
-
   font-size: 1.5rem;
   font-weight: 700;
   position: fixed;
@@ -20,8 +27,13 @@
 }
 
 .blog_header a {
+  margin-left: 10vw;
   text-decoration: none;
   color: rgb(14, 232, 120);
+}
+
+.blog_header a:hover {
+  color: rgb(14, 167, 232);
 }
 /* Header style end */
 
@@ -29,8 +41,8 @@
 .blog_footer {
   background: rgb(86, 104, 9);
   padding: 15px 20px 5px;
-  color: rgb(14, 232, 120);
-  font-size: 1.5rem;
+  color: rgb(255, 255, 255);
+  font-size: 1rem;
   font-weight: 700;
   position: fixed;
   bottom: 0;
@@ -39,16 +51,23 @@
   z-index: 10;
 }
 
+.blog_footer p {
+  text-align: right;
+}
 /* Footer style end */
 
 /* Top arrow start */
 .top_arrow {
   position: fixed;
-  bottom: 20px;
+  bottom: 5vh;
   right: 10px;
   z-index: 20;
   font-size: 2rem;
-  transition: all 1s linear;
+  transition: all 0.5s ease;
+  color: rgb(14, 122, 37);
+}
+.top_arrow:hover {
+  color: rgb(14, 100, 122);
 }
 /* Top arrow end */
 
@@ -63,7 +82,7 @@
 .single_card_container {
   width: 70vw;
   margin-bottom: 10px;
-  background: rgb(193, 221, 239);
+  background: rgb(187, 227, 252);
 }
 
 .single_card_info_delete_container {
@@ -73,14 +92,17 @@
 .single_card_info {
   width: 90%;
 }
-
-.post_title {
-  font-size: 1.8rem !important;
-  color: rgb(114, 105, 11) !important;
+.post_title_container {
   text-align: center;
 }
+.post_title {
+  font-size: 1.8rem !important;
+  color: #1f5da0 !important;
+}
 .post_title:hover {
-  color: rgba(114, 105, 11, 0.463) !important;
+  font-size: 1.81rem !important;
+  color: rgba(5, 50, 153, 0.463) !important;
+  text-overflow: hidden;
 }
 
 .author_container,
@@ -104,13 +126,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 5%;
+}
+
+.delete_button:hover {
+  color: red;
 }
 /* Main Posts container end */
 
 /* Detail Posts container start */
 .detail_post_container {
   top: 7vh;
-
   display: flex;
   flex-direction: column;
   align-items: center;

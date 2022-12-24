@@ -36,9 +36,9 @@ const SinglePostCard = ({ data, deletePost }) => {
     <Card className="single_card_container">
       <div className="single_card_info_delete_container">
         <div className="single_card_info">
-          <Typography.Title level={4} className="post_title">
+          <Typography.Title level={4}  className="post_title_container">
             <Link href="/post/[pid]" as={`/post/${data?.id}`}>
-              <span>{data?.title}</span>
+              <span className="post_title">{data?.title}</span>
             </Link>
           </Typography.Title>
 
