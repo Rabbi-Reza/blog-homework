@@ -47,12 +47,13 @@ const PostDetail = () => {
     singlePost && setPostDetail(singlePost);
   }, [singlePost]);
 
-  // Set Specific Comments Data, Author/User Data and Photo Data to a state
+  // Call API for specific comment by id and specific Author by user id
   useEffect(() => {
     postDetail && dispatch(fetchCommentsById(postDetail?.id));
     postDetail && dispatch(fetchUsersById(postDetail?.userId));
   }, [dispatch, postDetail]);
 
+  // Call API for specific photo by id from Author/User Data
   useEffect(() => {
     userInfoByID && dispatch(fetchPhotoById(userInfoByID[0]?.id));
   }, [dispatch, userInfoByID]);
@@ -67,13 +68,13 @@ const PostDetail = () => {
         description: (
           <p
             style={{ color: "blue", fontWeight: "600" }}
-          >{`Error Occurred getting APost Data.`}</p>
+          >{`Error Occurred getting Post Data.`}</p>
         ),
         duration: 2,
       });
   }, [postError]);
 
-  // Show toast if user/Author api get error
+  // Show toast if User/Author api get error
   useEffect(() => {
     userError &&
       api["error"]({
@@ -89,7 +90,7 @@ const PostDetail = () => {
       });
   }, [userError]);
 
-  // Show toast if comments api get error
+  // Show toast if Comments api get error
   useEffect(() => {
     commentsError &&
       api["error"]({
@@ -105,7 +106,7 @@ const PostDetail = () => {
       });
   }, [commentsError]);
 
-  // Show toast if photo api get error
+  // Show toast if Photo api get error
   useEffect(() => {
     photosError &&
       api["error"]({

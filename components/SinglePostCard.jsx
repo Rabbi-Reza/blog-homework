@@ -12,7 +12,7 @@ const SinglePostCard = ({ data, deletePost }) => {
 
   const [api, contextHolder] = notification.useNotification();
 
-  // Get Author Data state from Reducer
+  // Get Author/User Data state from Reducer
   const { allUserData, userError } = useSelector((state) => state?.users);
   // Get Comments Data state from Reducer
   const { allComments, commentsError } = useSelector(
@@ -21,12 +21,12 @@ const SinglePostCard = ({ data, deletePost }) => {
   // Get Photo Data state from Reducer
   const { allPhotosList, photosError } = useSelector((state) => state?.photos);
 
-  // Filter Author from user id
+  // Filter Author/User from user id
   useEffect(() => {
     setUserData(allUserData.filter((dt) => dt?.id === data?.userId));
   }, [allUserData]);
 
-  // Filter comments from post id
+  // Filter Comments from post id
   useEffect(() => {
     setAllCommentsList(allComments.filter((dt) => dt?.postId === data?.id));
   }, [allComments]);
@@ -36,7 +36,7 @@ const SinglePostCard = ({ data, deletePost }) => {
     setAllPhotos(allPhotosList.filter((dt) => dt?.id === userData[0]?.id));
   }, [allPhotosList]);
 
-  // Show toast if user/Author list api get error
+  // Show toast if Author/User list api get error
   useEffect(() => {
     userError &&
       api["error"]({
@@ -52,7 +52,7 @@ const SinglePostCard = ({ data, deletePost }) => {
       });
   }, [userError]);
 
-  // Show toast if comments list api get error
+  // Show toast if Comments list api get error
   useEffect(() => {
     commentsError &&
       api["error"]({
@@ -68,7 +68,7 @@ const SinglePostCard = ({ data, deletePost }) => {
       });
   }, [commentsError]);
 
-  // Show toast if photos list api get error
+  // Show toast if Photos list api get error
   useEffect(() => {
     photosError &&
       api["error"]({

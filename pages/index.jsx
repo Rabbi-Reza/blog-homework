@@ -18,7 +18,7 @@ export default function Home() {
   const dispatch = useDispatch();
   const [api, contextHolder] = notification.useNotification();
 
-  // Calling API for Post, users, comments and photos
+  // Calling API for All Posts, Users, Comments and Photos
   useEffect(() => {
     dispatch(fetchAllPosts());
     dispatch(fetchAllUsers());
@@ -60,7 +60,7 @@ export default function Home() {
       description: (
         <p
           style={{ color: "red", fontWeight: "600" }}
-        >{`${id} No Post is Deleted Successfully!!`}</p>
+        >{`${id} No Post Deleted Successfully!!`}</p>
       ),
       duration: 2,
     });
