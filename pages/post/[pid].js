@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { Card, Divider, Skeleton, Typography } from "antd";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -110,7 +111,9 @@ const PostDetail = () => {
                       commentsById.map((comment, id) => (
                         <>
                           <Typography.Title level={5}>
-                            <span style={{ color: "#1F5DA0" }}>({id + 1})&nbsp;</span>
+                            <span style={{ color: "#1F5DA0" }}>
+                              ({id + 1})&nbsp;
+                            </span>
                             <span>{comment?.name}:</span>{" "}
                             <span style={{ color: "#3003fc" }}>
                               (Email: {comment?.email})
@@ -124,6 +127,9 @@ const PostDetail = () => {
                   </>
                 )}
               </Card>
+              <Link href="/" className="go_back_button">
+                <span>Go Back</span>
+              </Link>
             </div>
           </>
         )}

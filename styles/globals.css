@@ -87,6 +87,10 @@ body {
   transition: box-shadow 0.5s;
 }
 
+.single_card_container:last-child {
+  margin-bottom: 7vh;
+}
+
 .single_card_container:hover {
   box-shadow: 3px 3px 22px #959595;
 }
@@ -134,8 +138,9 @@ body {
   font-size: 1.8rem;
   display: flex;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
   margin-left: 5%;
+  margin-top: 2%;
   transition: all 1s;
 }
 
@@ -166,6 +171,20 @@ body {
   justify-content: space-between;
   margin-bottom: 10px;
 }
+
+.go_back_button {
+  margin-bottom: 6vh;
+  text-decoration: none;
+  background: rgba(0, 0, 0, 0.571);
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 5px;
+}
+
+.go_back_button:hover {
+  background: rgba(0, 0, 0, 0.68);
+}
+
 /* Detail Posts container end */
 
 /* No Post Start */
@@ -181,3 +200,9 @@ body {
   font-weight: 700;
 }
 /* No Post End */
+
+@media (max-width: 768px) {
+  .post_title {
+    font-size: 1rem !important;
+  }
+}

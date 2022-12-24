@@ -81,7 +81,7 @@ export default function Home() {
             </>
           )}
         </main>
-        <Link href="#">
+        <Link href="">
           <span className="top_arrow" title="Click to Go Top">
             <UpCircleOutlined />
           </span>

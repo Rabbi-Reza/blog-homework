@@ -4,7 +4,6 @@ import { Card, Divider, Typography } from "antd";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-const { Meta } = Card;
 
 const SinglePostCard = ({ data, deletePost }) => {
   const [allCommentsList, setAllCommentsList] = useState([]);
